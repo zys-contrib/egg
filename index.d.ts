@@ -4,6 +4,7 @@ import * as KoaRouter from 'koa-router';
 import { EventEmitter } from 'events'
 import { Readable } from 'stream';
 import { Socket } from 'net';
+import { IncomingMessage, ServerResponse } from 'http';
 import { EggLogger, EggLoggers, LoggerLevel as EggLoggerLevel, EggContextLogger } from 'egg-logger';
 import { HttpClient2, RequestOptions } from 'urllib';
 import EggCookies = require('egg-cookies');
@@ -709,11 +710,24 @@ declare module 'egg' {
   * the egg's Context interface, which is wrong here because we have our own
   * special properties (e.g: encrypted). So we must remove this property and
   * create our own with the same name.
+  * @see https://github.com/eggjs/egg/pull/2958
+  * 
+  * However, the latest version of Koa has "[key: string]: any" on the
+  * context, and there'll be a type error for "keyof koa.Context".
+  * So we have to directly inherit from "KoaApplication.BaseContext" and
+  * rewrite all the properties to be compatible with types in Koa.
+  * @see https://github.com/eggjs/egg/pull/3329
   */
-  export interface Context extends RemoveSpecProp<KoaApplication.Context, 'cookies'> {
+  export interface Context extends KoaApplication.BaseContext {
     [key: string]: any;
 
     app: Application;
+
+    // properties of koa.Context
+    req: IncomingMessage;
+    res: ServerResponse;
+    originalUrl: string;
+    respond?: boolean;
 
     service: IService;
 
@@ -782,8 +796,7 @@ declare module 'egg' {
     realStatus: number;
 
     /**
-     * 设置返回资源对象
-     * set the ctx.body.data value
+     * Set the ctx.body.data value
      *
      * @member {Object} Context#data=
      * @example
