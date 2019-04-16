@@ -1,5 +1,23 @@
 # History
 
+## 2019-04-16, Version 2.22.0 @atian25
+
+### Notable changes
+
+* **features**
+  * switch httpclient to httpclient2 for retry feature
+  * add BaseHookClass
+
+* **docs**
+  * d.ts for single mode
+
+### Commits
+
+  * [[`e7fbd68f3`](http://github.com/eggjs/egg/commit/e7fbd68f32054041b74bc860f11aca05c025c0a9)] - feat: switch httpclient to httpclient2 for retry feature (#3626) (TZ | 天猪 <<atian25@qq.com>>)
+  * [[`8bb7c7e7d`](http://github.com/eggjs/egg/commit/8bb7c7e7d59d6aeca4b2ed1eb580368dcb731a4d)] - feat: add BaseHookClass (#3581) (killa <<killa123@126.com>>)
+  * [[`459454354`](http://github.com/eggjs/egg/commit/4594543543290a8c714fe3b9047c84578bf2f9a6)] - feat: index.d.ts添加单进程模式 (#3628) (jasine <<jasinechen@gmail.com>>)
+  * [[`4b13a1ffb`](http://github.com/eggjs/egg/commit/4b13a1ffbed0895731bf38f72d5786d4b15f263f)] - chore: fix jsdocs (#3627) (TZ | 天猪 <<atian25@qq.com>>)
+
 ## 2019-04-12, Version 2.21.1 @dead-horse
 
 ### Notable changes
